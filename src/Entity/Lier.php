@@ -15,37 +15,37 @@ class Lier
 
     #[ORM\ManyToOne(inversedBy: 'liers')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Team $idTeam = null;
+    private ?Team $team = null;
 
     #[ORM\ManyToOne(inversedBy: 'liers')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Projet $idProjet = null;
+    private ?Projet $projet = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdTeam(): ?Team
+    public function getTeam(): ?Team
     {
-        return $this->idTeam;
+        return $this->team;
     }
 
-    public function setIdTeam(?Team $idTeam): static
+    public function setTeam(?Team $team): static
     {
-        $this->idTeam = $idTeam;
+        $this->team = $team;
 
         return $this;
     }
 
-    public function getIdProjet(): ?Projet
+    public function getProjet(): ?Projet
     {
-        return $this->idProjet;
+        return $this->projet;
     }
 
-    public function setIdProjet(?Projet $idProjet): static
+    public function setProjet(?Projet $projet): static
     {
-        $this->idProjet = $idProjet;
+        $this->projet = $projet;
 
         return $this;
     }

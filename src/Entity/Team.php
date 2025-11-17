@@ -65,7 +65,7 @@ class Team
     {
         if (!$this->composers->contains($composer)) {
             $this->composers->add($composer);
-            $composer->setIdTeam($this);
+            $composer->setTeam($this);
         }
 
         return $this;
@@ -75,8 +75,8 @@ class Team
     {
         if ($this->composers->removeElement($composer)) {
             // set the owning side to null (unless already changed)
-            if ($composer->getIdTeam() === $this) {
-                $composer->setIdTeam(null);
+            if ($composer->getTeam() === $this) {
+                $composer->setTeam(null);
             }
         }
 
@@ -95,7 +95,7 @@ class Team
     {
         if (!$this->liers->contains($lier)) {
             $this->liers->add($lier);
-            $lier->setIdTeam($this);
+            $lier->setTeam($this);
         }
 
         return $this;
@@ -105,8 +105,8 @@ class Team
     {
         if ($this->liers->removeElement($lier)) {
             // set the owning side to null (unless already changed)
-            if ($lier->getIdTeam() === $this) {
-                $lier->setIdTeam(null);
+            if ($lier->getTeam() === $this) {
+                $lier->setTeam(null);
             }
         }
 

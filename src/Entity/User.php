@@ -43,9 +43,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Composer::class, mappedBy: 'id_user')]
     private Collection $composers;
 
+    /**
+     * @var Collection<int, Assigner>
+     */
+    #[ORM\OneToMany(targetEntity: Assigner::class, mappedBy: 'id_user')]
+    private Collection $assigners;
+
     public function __construct()
     {
         $this->composers = new ArrayCollection();
+        $this->assigners = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -153,7 +160,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->composers->contains($composer)) {
             $this->composers->add($composer);
-            $composer->setIdUser($this);
+            $composer->setUser($this);
         }
 
         return $this;
@@ -163,8 +170,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->composers->removeElement($composer)) {
             // set the owning side to null (unless already changed)
-            if ($composer->getIdUser() === $this) {
-                $composer->setIdUser(null);
+            if ($composer->getUser() === $this) {
+                $composer->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Assigner>
+     */
+    public function getAssigners(): Collection
+    {
+        return $this->assigners;
+    }
+
+    public function addAssigner(Assigner $assigner): static
+    {
+        if (!$this->assigners->contains($assigner)) {
+            $this->assigners->add($assigner);
+            $assigner->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssigner(Assigner $assigner): static
+    {
+        if ($this->assigners->removeElement($assigner)) {
+            // set the owning side to null (unless already changed)
+            if ($assigner->getUser() === $this) {
+                $assigner->setUser(null);
             }
         }
 

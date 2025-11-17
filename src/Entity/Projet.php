@@ -155,7 +155,7 @@ class Projet
     {
         if (!$this->liers->contains($lier)) {
             $this->liers->add($lier);
-            $lier->setIdProjet($this);
+            $lier->setProjet($this);
         }
 
         return $this;
@@ -165,8 +165,8 @@ class Projet
     {
         if ($this->liers->removeElement($lier)) {
             // set the owning side to null (unless already changed)
-            if ($lier->getIdProjet() === $this) {
-                $lier->setIdProjet(null);
+            if ($lier->getProjet() === $this) {
+                $lier->setProjet(null);
             }
         }
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TacheRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TacheRepository::class)]
@@ -34,6 +36,17 @@ class Tache
     #[ORM\ManyToOne(inversedBy: 'taches')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Projet $id_projet = null;
+
+    /**
+     * @var Collection<int, Assigner>
+     */
+    #[ORM\OneToMany(targetEntity: Assigner::class, mappedBy: 'id_tache')]
+    private Collection $assigners;
+
+    public function __construct()
+    {
+        $this->assigners = new ArrayCollection();
+    }
 
 
 
@@ -122,6 +135,36 @@ class Tache
     public function setIdProjet(?Projet $id_projet): static
     {
         $this->id_projet = $id_projet;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Assigner>
+     */
+    public function getAssigners(): Collection
+    {
+        return $this->assigners;
+    }
+
+    public function addAssigner(Assigner $assigner): static
+    {
+        if (!$this->assigners->contains($assigner)) {
+            $this->assigners->add($assigner);
+            $assigner->setTache($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssigner(Assigner $assigner): static
+    {
+        if ($this->assigners->removeElement($assigner)) {
+            // set the owning side to null (unless already changed)
+            if ($assigner->getTache() === $this) {
+                $assigner->setTache(null);
+            }
+        }
 
         return $this;
     }

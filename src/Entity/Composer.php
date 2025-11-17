@@ -18,11 +18,11 @@ class Composer
 
     #[ORM\ManyToOne(inversedBy: 'composers')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Team $id_team = null;
+    private ?Team $team = null;
 
     #[ORM\ManyToOne(inversedBy: 'composers')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $id_user = null;
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -41,26 +41,26 @@ class Composer
         return $this;
     }
 
-    public function getIdTeam(): ?Team
+    public function getTeam(): ?Team
     {
-        return $this->id_team;
+        return $this->team;
     }
 
-    public function setIdTeam(?Team $id_team): static
+    public function setTeam(?Team $team): static
     {
-        $this->id_team = $id_team;
+        $this->team = $team;
 
         return $this;
     }
 
-    public function getIdUser(): ?User
+    public function getUser(): ?User
     {
-        return $this->id_user;
+        return $this->user;
     }
 
-    public function setIdUser(?User $id_user): static
+    public function setUser(?User $user): static
     {
-        $this->id_user = $id_user;
+        $this->user = $user;
 
         return $this;
     }
