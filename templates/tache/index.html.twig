@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tache index{% endblock %}
+{% block title %}List Tache{% endblock %}
 
 {% block body %}
-    <h1>Tache index</h1>
+    <h1 class="mb-4 fw-bold">Tache index</h1>
 
-    <table class="table">
+    <div class="card p-3">
+    <div class="d-flex justify-content-between mb-3">
+        <h5 class="fw-semibold text-secondary">All Tache</h5>
+    </div>
+
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -29,8 +34,8 @@
                 <td>{{ tache.dateFinReelle ? tache.dateFinReelle|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ tache.statut }}</td>
                 <td>
-                    <a href="{{ path('app_tache_show', {'id': tache.id}) }}">show</a>
-                    <a href="{{ path('app_tache_edit', {'id': tache.id}) }}">edit</a>
+                    <a href="{{ path('app_tache_show', {'id': tache.id}) }}" class="btn btn-sm btn-warning">show</a>
+                    <a href="{{ path('app_tache_edit', {'id': tache.id}) }}" class="btn btn-sm btn-warning">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -41,5 +46,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_tache_new') }}">Create new</a>
+    <a href="{{ path('app_tache_new') }}" class="btn btn-sm btn-warning">Create new</a>
 {% endblock %}

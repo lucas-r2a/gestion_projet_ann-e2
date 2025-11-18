@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}List User{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <h1 class="mb-4 fw-bold">User index</h1>
 
-    <table class="table">
+    <div class="card p-3">
+    <div class="d-flex justify-content-between mb-3">
+        <h5 class="fw-semibold text-secondary">All User</h5>
+    </div>
+
+    <table class="table table-hover ">
         <thead>
             <tr>
                 <th>Id</th>
@@ -25,8 +30,8 @@
                 <td>{{ user.password }}</td>
                 <td>{{ user.name }}</td>
                 <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-sm btn-warning">show</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-sm btn-warning">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -37,5 +42,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+    <a href="{{ path('app_user_new') }}" class="btn btn-sm btn-warning">Create new</a>
 {% endblock %}

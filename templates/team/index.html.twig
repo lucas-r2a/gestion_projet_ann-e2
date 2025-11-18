@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Team index{% endblock %}
+{% block title %}List Team{% endblock %}
 
 {% block body %}
-    <h1>Team index</h1>
+    <h1 class="mb-4 fw-bold">Team index</h1>
 
-    <table class="table">
+    <div class="card p-3">
+    <div class="d-flex justify-content-between mb-3">
+        <h5 class="fw-semibold text-secondary">All Team</h5>
+    </div>
+
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -19,8 +24,8 @@
                 <td>{{ team.id }}</td>
                 <td>{{ team.name }}</td>
                 <td>
-                    <a href="{{ path('app_team_show', {'id': team.id}) }}">show</a>
-                    <a href="{{ path('app_team_edit', {'id': team.id}) }}">edit</a>
+                    <a href="{{ path('app_team_show', {'id': team.id}) }}" class="btn btn-sm btn-warning">show</a>
+                    <a href="{{ path('app_team_edit', {'id': team.id}) }}" class="btn btn-sm btn-warning">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +36,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_team_new') }}">Create new</a>
+    <a href="{{ path('app_team_new') }}" class="btn btn-sm btn-warning">Create new</a>
 {% endblock %}

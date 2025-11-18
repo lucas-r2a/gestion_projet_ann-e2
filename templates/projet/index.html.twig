@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Projet index{% endblock %}
+{% block title %}Liste des projets{% endblock %}
 
 {% block body %}
-    <h1>Projet index</h1>
+    <h1 class="mb-4 fw-bold">Projet index</h1>
 
-    <table class="table">
+    <div class="card p-3">
+    <div class="d-flex justify-content-between mb-3">
+        <h5 class="fw-semibold text-secondary">All Projets</h5>
+    </div>
+
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -27,8 +32,8 @@
                 <td>{{ projet.dateFinPrevue ? projet.dateFinPrevue|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ projet.dateFinReelle ? projet.dateFinReelle|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_projet_show', {'id': projet.id}) }}">show</a>
-                    <a href="{{ path('app_projet_edit', {'id': projet.id}) }}">edit</a>
+                    <a href="{{ path('app_projet_show', {'id': projet.id}) }}" class="btn btn-sm btn-secondary">show</a>
+                    <a href="{{ path('app_projet_edit', {'id': projet.id}) }}" class="btn btn-sm btn-warning">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -39,5 +44,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_projet_new') }}">Create new</a>
+    <a href="{{ path('app_projet_new') }}"  class="btn btn-sm btn-warning">Create new</a>
 {% endblock %}
