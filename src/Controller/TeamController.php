@@ -9,6 +9,7 @@ use App\Form\ComposerType;
 use App\Form\LierType;
 use App\Form\TeamType;
 use App\Repository\TeamRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,8 +86,8 @@ final class TeamController extends AbstractController
 
 
     #Ajouter des membres
-    #[Route('/{idTeam}/add-member', name: 'team_add_member', methods: ['GET', 'POST'])]
-    public function addMember(Request $request, Team $team, EntityManagerInterface $em): Response
+    #[Route('/{team}/add-member', name: 'team_add_member', methods: ['GET', 'POST'])]
+    public function addMember(Request $request, Team $team, EntityManagerInterface $em, TeamRepository $teamRepository, UserRepository $userRepository): Response
     {
         $composer = new Composer();
         $composer->setTeam($team);
@@ -99,11 +100,14 @@ final class TeamController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Membre ajouté à l’équipe.');
-            return $this->redirectToRoute('team_show', ['idTeam' => $team->getId()]);
+            return $this->redirectToRoute('app_team_show', ['id' => $team->getId()]);
         }
-
-        return $this->render('team/add_member.html.twig', [
+        $nameUser = $userRepository->findAll();
+        $nameTeam = $teamRepository->findAll();
+        return $this->render('team/add_membre.html.twig', [
             'team' => $team,
+            'user' => $nameUser,
+            'nameTeam' => $nameTeam,
             'form' => $form->createView(),
         ]);
     }
@@ -121,11 +125,11 @@ final class TeamController extends AbstractController
             $this->addFlash('success', 'Membre retiré de l’équipe.');
         }
 
-        return $this->redirectToRoute('team_show', ['idTeam' => $teamId]);
+        return $this->redirectToRoute('app_team_show', ['idTeam' => $teamId]);
     }
 
     
-    // ajouter equipe au projets 
+    // ajouter equipe aux projets 
     #[Route('/{team}/add-project', name: 'team_add_project', methods: ['GET', 'POST'])]
     public function addProject(Request $request, Team $team, EntityManagerInterface $em): Response
     {
@@ -140,7 +144,7 @@ final class TeamController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Projet ajouté à l’équipe.');
-            return $this->redirectToRoute('team_show', ['idTeam' => $team->getId()]);
+            return $this->redirectToRoute('app_team_show', ['id' => $team->getId()]);
         }
 
         return $this->render('team/add_projet.html.twig', [
@@ -162,6 +166,6 @@ final class TeamController extends AbstractController
             $this->addFlash('success', 'Projet retiré de l’équipe.');
         }
 
-        return $this->redirectToRoute('team_show', ['idTeam' => $teamId]);
+        return $this->redirectToRoute('app_team_show', ['id' => $teamId]);
     }
 }

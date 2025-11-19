@@ -17,11 +17,11 @@ class LierType extends AbstractType
         $builder
             ->add('team', EntityType::class, [
                 'class' => Team::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('projet', EntityType::class, [
                 'class' => Projet::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
         ;
     }

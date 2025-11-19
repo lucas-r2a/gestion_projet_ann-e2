@@ -18,11 +18,11 @@ class ComposerType extends AbstractType
             ->add('role')
             ->add('team', EntityType::class, [
                 'class' => Team::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
         ;
     }

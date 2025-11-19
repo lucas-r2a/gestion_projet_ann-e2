@@ -28,7 +28,7 @@
     <ul class="bg-white shadow rounded p-4 space-y-2">
         {% for lier in team.liers %}
             <li class="flex justify-between items-center">
-                {{ lier.project.name }}
+                {{ lier.projet.name }}
                 <form action="{{ path('team_remove_project', {'id': lier.id}) }}" method="post" onsubmit="return confirm('Retirer ce projet ?');">
                     <input type="hidden" name="_token" value="{{ csrf_token('remove_project' ~ lier.id) }}">
                     <button class="text-red-600 hover:underline">Supprimer</button>
@@ -38,7 +38,7 @@
             <li class="text-gray-500">Aucun projet</li>
         {% endfor %}
     </ul>
-    <a href="{{ path('team_add_project', {'idTeam': team.id}) }}" class="mt-2 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Ajouter un projet</a>
+    <a href="{{ path('team_add_project', {'team': team.id}) }}" class="mt-2 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Ajouter un projet</a>
 </div>
 
 <a href="{{ path('app_team_index') }}" class="text-blue-600 hover:underline">← Retour à la liste</a>
