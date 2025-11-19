@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}Assigner une tâche{% endblock %}
+
+{% block body %}
+<div class="bg-white p-6 rounded-xl shadow max-w-xl mx-auto">
+
+    <h2 class="text-xl font-semibold mb-4">Assigner une tâche à {{ utilisateur.nomPrenom }}</h2>
+
+    {{ form_start(form) }}
+
+        <div class="mb-4">
+            {{ form_label(form.tache) }}
+            {{ form_widget(form.tache, {'attr': {'class': 'w-full p-2 border rounded'}}) }}
+        </div>
+
+        <button class="bg-blue-600 text-white px-4 py-2 rounded">
+            Assigner
+        </button>
+
+    {{ form_end(form) }}
+
+</div>
+{% endblock %}

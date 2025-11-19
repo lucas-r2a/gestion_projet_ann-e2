@@ -1,40 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}List Team{% endblock %}
+{% block title %}Liste des équipes{% endblock %}
 
 {% block body %}
-    <h1 class="mb-4 fw-bold">Team index</h1>
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold">Équipes</h2>
+    <a href="{{ path('app_team_new') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Créer une équipe</a>
+</div>
 
-    <div class="card p-3">
-    <div class="d-flex justify-content-between mb-3">
-        <h5 class="fw-semibold text-secondary">All Team</h5>
-    </div>
-
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<table class="min-w-full bg-white shadow rounded overflow-hidden">
+    <thead class="bg-gray-200">
+        <tr>
+            <th class="px-6 py-3 text-left">ID</th>
+            <th class="px-6 py-3 text-left">Nom</th>
+            <th class="px-6 py-3 text-left">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for team in teams %}
-            <tr>
-                <td>{{ team.id }}</td>
-                <td>{{ team.name }}</td>
-                <td>
-                    <a href="{{ path('app_team_show', {'id': team.id}) }}" class="btn btn-sm btn-warning">show</a>
-                    <a href="{{ path('app_team_edit', {'id': team.id}) }}" class="btn btn-sm btn-warning">edit</a>
+            <tr class="border-b hover:bg-gray-50">
+                <td class="px-6 py-3">{{ team.id }}</td>
+                <td class="px-6 py-3">{{ team.name }}</td>
+                <td class="px-6 py-3 flex gap-2">
+                    <a href="{{ path('app_team_show', {'id': team.id}) }}" class="text-blue-600 hover:underline">Voir</a>
+                    <a href="{{ path('app_team_edit', {'id': team.id}) }}" class="text-green-600 hover:underline">Éditer</a>
+                    <form action="{{ path('app_team_delete', {'id': team.id}) }}" method="post" onsubmit="return confirm('Voulez-vous vraiment supprimer cette équipe ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ team.id) }}">
+                        <button type="submit" class="text-red-600 hover:underline">Supprimer</button>
+                    </form>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3" class="px-6 py-3 text-center text-gray-500">Aucune équipe trouvée.</td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_team_new') }}" class="btn btn-sm btn-warning">Create new</a>
+    </tbody>
+</table>
 {% endblock %}

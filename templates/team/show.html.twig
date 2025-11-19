@@ -1,26 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Team{% endblock %}
+{% block title %}Détails de l’équipe{% endblock %}
 
 {% block body %}
-    <h1 class="mb-4 fw-bold">Team</h1>
+<h2 class="text-2xl font-bold mb-6">{{ team.name }}</h2>
 
-    <table class="table table-hover">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ team.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ team.name }}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="mb-6">
+    <h3 class="text-xl font-semibold mb-2">Membres</h3>
+    <ul class="bg-white shadow rounded p-4 space-y-2">
+        {% for member in team.composers %}
+            <li class="flex justify-between items-center">
+                {{ member.name }}
+                <form action="{{ path('team_remove_member', {'id': member.id}) }}" method="post" onsubmit="return confirm('Supprimer ce membre ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('remove_member' ~ member.id) }}">
+                    <button class="text-red-600 hover:underline">Supprimer</button>
+                </form>
+            </li>
+        {% else %}
+            <li class="text-gray-500">Aucun membre</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ path('team_add_member', {'idEquipe': team.id}) }}" class="mt-2 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Ajouter un membre</a>
+</div>
 
-    <a href="{{ path('app_team_index') }}" class="btn btn-secondary mt-3">⟵ Return</a>
+<div class="mb-6">
+    <h3 class="text-xl font-semibold mb-2">Projets</h3>
+    <ul class="bg-white shadow rounded p-4 space-y-2">
+        {% for lier in team.liers %}
+            <li class="flex justify-between items-center">
+                {{ lier.project.name }}
+                <form action="{{ path('team_remove_project', {'id': lier.id}) }}" method="post" onsubmit="return confirm('Retirer ce projet ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('remove_project' ~ lier.id) }}">
+                    <button class="text-red-600 hover:underline">Supprimer</button>
+                </form>
+            </li>
+        {% else %}
+            <li class="text-gray-500">Aucun projet</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ path('team_add_project', {'idEquipe': team.id}) }}" class="mt-2 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Ajouter un projet</a>
+</div>
 
-    <a href="{{ path('app_team_edit', {'id': team.id}) }}" class="btn btn-secondary mt-3">edit</a>
-
-    {{ include('team/_delete_form.html.twig') }}
+<a href="{{ path('app_team_index') }}" class="text-blue-600 hover:underline">← Retour à la liste</a>
 {% endblock %}

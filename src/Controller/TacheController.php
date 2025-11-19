@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Assigner;
 use App\Entity\Tache;
+use App\Form\AssignationType;
 use App\Form\TacheType;
 use App\Repository\TacheRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -78,4 +81,51 @@ final class TacheController extends AbstractController
 
         return $this->redirectToRoute('app_tache_index', [], Response::HTTP_SEE_OTHER);
     }
+     #[Route('/{id_tache}/assigner', name: 'tache_assigner', methods: ['GET', 'POST'])]
+    public function assigner(Tache $tache, Request $request, EntityManagerInterface $em, 
+    UserRepository $userRepo): Response {
+        $assignation = new Assigner();
+        $assignation->setTache($tache);
+
+        $form = $this->createForm(AssignationType::class, $assignation, [
+            'user' => $userRepo->findAll()
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($assignation);
+            $em->flush();
+
+            return $this->redirectToRoute('tache_show', ['id_tache' => $tache->getId()]);
+        }
+
+        return $this->render('tache/assigner.html.twig', [
+            'tache' => $tache,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/assignation/{id}/remove', name: 'tache_remove_assignation', methods: ['POST'])]
+    public function removeAssignation(Assigner $assigner, EntityManagerInterface $em): Response
+    {
+        $tacheId = $assigner->getTache()->getId();
+
+        $em->remove($assigner);
+        $em->flush();
+
+        return $this->redirectToRoute('tache_show', ['id_tache' => $tacheId]);
+    }
+
+    
+    #MISE À JOUR DU STATUT
+    #[Route('/{id_tache}/statut/{new}', name: 'tache_update_statut', methods: ['GET'])]
+    public function updateStatus(Tache $tache, string $new, EntityManagerInterface $em): Response
+    {
+        $tache->setStatut($new);
+        $em->flush();
+
+        return $this->redirectToRoute('tache_show', ['id_tache' => $tache->getId()]);
+    }
 }
+    

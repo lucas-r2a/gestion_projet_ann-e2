@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Lier;
 use App\Entity\Projet;
 use App\Form\ProjetType;
+use App\Form\TeamType;
 use App\Repository\ProjetRepository;
+use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,5 +80,53 @@ final class ProjetController extends AbstractController
         }
 
         return $this->redirectToRoute('app_projet_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id_projet}/teams', name: 'projet_teams', methods: ['GET', 'POST'])]
+    public function teams(Projet $projet,Request $request,TeamRepository $teamRepo,EntityManagerInterface $em): Response {
+
+        $form = $this->createForm(TeamType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $team = $form->get('team')->getData();
+
+            // Vérifier si déjà lié
+            foreach ($projet->getLiers() as $lien) {
+                if ($lien->getTeam() === $team) {
+                    $this->addFlash('warning', 'Cette équipe est déjà liée à ce projet.');
+                    return $this->redirectToRoute('projet_teams', ['id_projet' => $projet->getId()]);
+                }
+            }
+
+            // Création de la relation LIER
+            $lier = new Lier();
+            $lier->setProjet($projet);
+            $lier->setTeam($team);
+
+            $em->persist($lier);
+            $em->flush();
+
+            $this->addFlash('success', 'Équipe ajoutée au projet.');
+            return $this->redirectToRoute('projet_teams', ['id_projet' => $projet->getId()]);
+        }
+
+        return $this->render('projet/teams.html.twig', [
+            'projet' => $projet,
+            'teams' => $projet->getLiers(),
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/{id_projet}/team/{id}/remove', name: 'projet_team_remove')]
+    public function removeTeam(Projet $projet, Lier $lier, EntityManagerInterface $em): Response
+    {
+        $em->remove($lier);
+        $em->flush();
+
+        $this->addFlash('success', 'Équipe retirée du projet.');
+
+        return $this->redirectToRoute('projet_teams', ['id_projet' => $projet->getId()]);
     }
 }

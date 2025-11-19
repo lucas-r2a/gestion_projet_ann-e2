@@ -1,46 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tache{% endblock %}
+{% block title %}Détails de la Tâche{% endblock %}
 
 {% block body %}
-    <h1 class="mb-4 fw-bold">Tache</h1>
+<h1 class="text-2xl font-bold mb-4">{{ tache.titre }}</h1>
 
-    <table class="table table-hover">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ tache.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ tache.titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ tache.description }}</td>
-            </tr>
-            <tr>
-                <th>Date_debut</th>
-                <td>{{ tache.dateDebut ? tache.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Date_fin_prevue</th>
-                <td>{{ tache.dateFinPrevue ? tache.dateFinPrevue|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Date_fin_reelle</th>
-                <td>{{ tache.dateFinReelle ? tache.dateFinReelle|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Statut</th>
-                <td>{{ tache.statut }}</td>
-            </tr>
-        </tbody>
-    </table>
+<p class="mb-2"><strong>Description:</strong> {{ tache.description }}</p>
+<p class="mb-2"><strong>Statut:</strong> {{ tache.statut }}</p>
 
-    <a href="{{ path('app_tache_index') }}" class="btn btn-secondary mt-3">⟵ Return</a>
+<div class="flex gap-2 mt-4">
+    <a href="{{ path('app_tache_edit', {'id': tache.id}) }}" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Modifier</a>
+    <a href="{{ path('app_tache_index') }}" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Retour</a>
+    <a href="{{ path('tache_assigner', {'id_tache': tache.id}) }}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Assigner</a>
+</div>
 
-    <a href="{{ path('app_tache_edit', {'id': tache.id}) }}" class="btn btn-secondary mt-3">edit</a>
+<h2 class="text-xl font-semibold mt-6 mb-2">Assignations</h2>
+<ul class="list-disc list-inside">
+    {% for assign in tache.assigners %}
+        <li class="flex justify-between items-center">
+            {{ assign.user.username }}
+            <form method="post" action="{{ path('tache_remove_assignation', {'id': assign.id}) }}" onsubmit="return confirm('Supprimer cette assignation ?');">
+                <button class="text-red-600 hover:underline" type="submit">Supprimer</button>
+            </form>
+        </li>
+    {% else %}
+        <li class="text-gray-500">Aucune assignation.</li>
+    {% endfor %}
+</ul>
 
-    {{ include('tache/_delete_form.html.twig') }}
+<h2 class="text-xl font-semibold mt-6 mb-2">Changer le statut</h2>
+<div class="flex gap-2">
+    {% for statut in ['En cours', 'Terminé', 'En attente'] %}
+        <a href="{{ path('tache_update_statut', {'id_tache': tache.id, 'new': statut}) }}" class="px-3 py-1 rounded {{ tache.statut == statut ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800 hover:bg-gray-300' }}">
+            {{ statut }}
+        </a>
+    {% endfor %}
+</div>
+
 {% endblock %}

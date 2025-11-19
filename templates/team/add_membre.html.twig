@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Ajouter un membre' if form.vars.value is same as('Composer') else 'Ajouter un projet' }}{% endblock %}
+
+{% block body %}
+<h2 class="text-2xl font-bold mb-6">
+    {{ 'Ajouter un membre à ' ~ team.name if form.vars.value is same as('Composer') else 'Ajouter un projet à ' ~ team.name }}
+</h2>
+
+{{ form_start(form, {'attr': {'class': 'space-y-4'}}) }}
+    {{ form_widget(form, {'attr': {'class': 'w-full border-gray-300 rounded p-2'}}) }}
+    <div>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Ajouter</button>
+    </div>
+{{ form_end(form) }}
+
+<a href="{{ path('app_team_show', {'id': team.id}) }}" class="text-blue-600 hover:underline mt-4 inline-block">← Retour à l’équipe</a>
+{% endblock %}

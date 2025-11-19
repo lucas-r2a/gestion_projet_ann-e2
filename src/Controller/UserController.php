@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Assigner;
 use App\Entity\User;
+use App\Form\AssignationType;
 use App\Form\UserType;
+use App\Repository\TacheRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -77,5 +80,56 @@ final class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    # gestion des assignations aux users
+    #[Route('/{id_user}/assignations', name: 'app_user_assignations', methods: ['GET'])]
+    public function assignations(User $user): Response
+    {
+        return $this->render('user/assignations.html.twig', [
+            'user' => $user,
+            'assignations' => $user->getAssigners(),
+        ]);
+    }
+
+    #ajouter des assignations
+    #[Route('/{id_user}/assigner', name: 'app_user_add_assignation', methods: ['GET', 'POST'])]
+    public function addAssignation(Request $request, User $user, EntityManagerInterface $em, TacheRepository $tacheRepo): Response
+    {
+        $assigner = new Assigner();
+        $assigner->setUser($user);
+
+        $form = $this->createForm(AssignationType::class, $assigner);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($assigner);
+            $em->flush();
+
+            return $this->redirectToRoute('app_user_assignations', [
+                'id_user' => $user->getId()
+            ]);
+        }
+
+        return $this->render('user/add_assignation.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #supprimer des assignations
+    #[Route('/assignation/{id}/remove', name: 'app_user_remove_assignation', methods: ['POST'])]
+    public function removeAssignation(Request $request, Assigner $assigner, EntityManagerInterface $em): Response
+    {
+        $userId = $assigner->getUser()->getId();
+
+        if ($this->isCsrfTokenValid('remove_assignation' . $assigner->getId(), $request->request->get('_token'))) {
+            $em->remove($assigner);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('app_user_assignations', [
+            'id_user' => $userId
+        ]);
     }
 }

@@ -1,46 +1,43 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}List User{% endblock %}
+{% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
-    <h1 class="mb-4 fw-bold">User index</h1>
+<div class="bg-white p-6 rounded-xl shadow">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-semibold">Utilisateurs</h2>
 
-    <div class="card p-3">
-    <div class="d-flex justify-content-between mb-3">
-        <h5 class="fw-semibold text-secondary">All User</h5>
+        <a href="{{ path('app_utilisateur_new') }}"
+           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+            + Ajouter
+        </a>
     </div>
 
-    <table class="table table-hover ">
-        <thead>
+    <table class="w-full border-collapse bg-white shadow rounded-md overflow-hidden">
+        <thead class="bg-gray-200">
             <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>Name</th>
-                <th>actions</th>
+                <th class="px-4 py-3 text-left">Nom</th>
+                <th class="px-4 py-3 text-left">Email</th>
+                <th class="px-4 py-3">Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.name }}</td>
-                <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-sm btn-warning">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-sm btn-warning">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
+            {% for u in utilisateurs %}
+                <tr class="border-b">
+                    <td class="px-4 py-3">{{ u.nomPrenom }}</td>
+                    <td class="px-4 py-3">{{ u.email }}</td>
+                    <td class="px-4 py-3 flex gap-2 justify-center">
+                        <a href="{{ path('app_utilisateur_show', {id_utilisateur: u.idUtilisateur}) }}"
+                           class="px-3 py-1 bg-blue-500 text-white rounded">Voir</a>
+                        <a href="{{ path('app_utilisateur_edit', {id_utilisateur: u.idUtilisateur}) }}"
+                           class="px-3 py-1 bg-yellow-500 text-white rounded">Éditer</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="text-center py-4 text-gray-500">Aucun utilisateur</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_user_new') }}" class="btn btn-sm btn-warning">Create new</a>
+</div>
 {% endblock %}

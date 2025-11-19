@@ -1,48 +1,43 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Liste des projets{% endblock %}
 
 {% block body %}
-    <h1 class="mb-4 fw-bold">Projet index</h1>
+<div class="bg-white p-6 rounded-xl shadow">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-semibold">Projets</h2>
 
-    <div class="card p-3">
-    <div class="d-flex justify-content-between mb-3">
-        <h5 class="fw-semibold text-secondary">All Projets</h5>
+        <a href="{{ path('app_projet_new') }}"
+           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+            + Nouveau projet
+        </a>
     </div>
 
-    <table class="table table-hover">
-        <thead>
+    <table class="w-full border-collapse bg-white shadow rounded-md overflow-hidden">
+        <thead class="bg-gray-200">
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Date_debut</th>
-                <th>Date_fin_prevue</th>
-                <th>Date_fin_reelle</th>
-                <th>actions</th>
+                <th class="px-4 py-3 text-left">Nom</th>
+                <th class="px-4 py-3 text-left">Description</th>
+                <th class="px-4 py-3">Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for projet in projets %}
-            <tr>
-                <td>{{ projet.id }}</td>
-                <td>{{ projet.name }}</td>
-                <td>{{ projet.description }}</td>
-                <td>{{ projet.dateDebut ? projet.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ projet.dateFinPrevue ? projet.dateFinPrevue|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ projet.dateFinReelle ? projet.dateFinReelle|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_projet_show', {'id': projet.id}) }}" class="btn btn-sm btn-secondary">show</a>
-                    <a href="{{ path('app_projet_edit', {'id': projet.id}) }}" class="btn btn-sm btn-warning">edit</a>
+            {% for p in projets %}
+            <tr class="border-b">
+                <td class="px-4 py-3 font-semibold">{{ p.nom }}</td>
+                <td class="px-4 py-3">{{ p.description|slice(0, 60) ~ '...' }}</td>
+                <td class="px-4 py-3 flex gap-2 justify-center">
+                    <a href="{{ path('app_projet_show', {id_projet: p.idProjet}) }}"
+                       class="px-3 py-1 bg-blue-500 text-white rounded">Voir</a>
+                    <a href="{{ path('app_projet_edit', {id_projet: p.idProjet}) }}"
+                       class="px-3 py-1 bg-yellow-500 text-white rounded">Éditer</a>
                 </td>
             </tr>
-        {% else %}
+            {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="3" class="text-center py-4 text-gray-500">Aucun projet trouvé</td>
             </tr>
-        {% endfor %}
+            {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_projet_new') }}"  class="btn btn-sm btn-warning">Create new</a>
+</div>
 {% endblock %}

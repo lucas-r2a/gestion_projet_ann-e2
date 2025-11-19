@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Edit User{% endblock %}
+{% block title %}Modifier utilisateur{% endblock %}
 
 {% block body %}
-    <h1 class="mb-4 fw-bold">Edit User</h1>
+<div class="bg-white p-6 rounded-xl shadow max-w-xl mx-auto">
+    <h2 class="text-2xl font-semibold mb-4">Modifier l’utilisateur</h2>
 
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ form_start(form) }}
 
-    <a href="{{ path('app_user_index') }}" class="btn btn-secondary mt-3">⟵ Return</a>
+        {{ form_widget(form) }}
 
-    {{ include('user/_delete_form.html.twig') }}
+        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded mt-4">
+            Mettre à jour
+        </button>
+
+    {{ form_end(form) }}
+</div>
 {% endblock %}

@@ -1,13 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Tache{% endblock %}
+{% block title %}Modifier Tâche{% endblock %}
 
 {% block body %}
-    <h1 class="mb-4 fw-bold">Edit Tache</h1>
+<h1 class="text-2xl font-bold mb-4">Modifier Tâche</h1>
 
-    {{ include('tache/_form.html.twig', {'button_label': 'Update'}) }}
+{{ form_start(form, {'attr': {'class': 'space-y-4'}}) }}
+    {{ form_row(form.titre, {'attr': {'class': 'w-full px-3 py-2 border rounded'}}) }}
+    {{ form_row(form.description, {'attr': {'class': 'w-full px-3 py-2 border rounded'}}) }}
+    {{ form_row(form.statut, {'attr': {'class': 'w-full px-3 py-2 border rounded'}}) }}
 
-    <a href="{{ path('app_tache_index') }}" class="btn btn-secondary mt-3">⟵ Return</a>
+    <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Enregistrer</button>
+{{ form_end(form) }}
 
-    {{ include('tache/_delete_form.html.twig') }}
+<a href="{{ path('app_tache_index') }}" class="inline-block mt-4 text-gray-600 hover:underline">Retour à la liste</a>
 {% endblock %}
