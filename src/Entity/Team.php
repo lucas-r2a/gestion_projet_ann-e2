@@ -21,13 +21,13 @@ class Team
     /**
      * @var Collection<int, Composer>
      */
-    #[ORM\OneToMany(targetEntity: Composer::class, mappedBy: 'id_team')]
+    #[ORM\OneToMany(targetEntity: Composer::class, mappedBy: 'team')]
     private Collection $composers;
 
     /**
      * @var Collection<int, Lier>
      */
-    #[ORM\OneToMany(targetEntity: Lier::class, mappedBy: 'idTeam')]
+    #[ORM\OneToMany(targetEntity: Lier::class, mappedBy: 'team')]
     private Collection $liers;
 
     public function __construct()

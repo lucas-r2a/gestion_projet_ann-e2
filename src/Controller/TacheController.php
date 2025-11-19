@@ -81,6 +81,8 @@ final class TacheController extends AbstractController
 
         return $this->redirectToRoute('app_tache_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    
      #[Route('/{id_tache}/assigner', name: 'tache_assigner', methods: ['GET', 'POST'])]
     public function assigner(Tache $tache, Request $request, EntityManagerInterface $em, 
     UserRepository $userRepo): Response {

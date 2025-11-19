@@ -7,6 +7,7 @@ use App\Entity\Projet;
 use App\Form\ProjetType;
 use App\Form\TeamType;
 use App\Repository\ProjetRepository;
+use App\Repository\TacheRepository;
 use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -82,7 +83,8 @@ final class ProjetController extends AbstractController
         return $this->redirectToRoute('app_projet_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id_projet}/teams', name: 'projet_teams', methods: ['GET', 'POST'])]
+    #Voir les equipe associe au projet
+    #[Route('/{projet}/teams', name: 'projet_teams', methods: ['GET', 'POST'])]
     public function teams(Projet $projet,Request $request,TeamRepository $teamRepo,EntityManagerInterface $em): Response {
 
         $form = $this->createForm(TeamType::class);
@@ -96,11 +98,10 @@ final class ProjetController extends AbstractController
             foreach ($projet->getLiers() as $lien) {
                 if ($lien->getTeam() === $team) {
                     $this->addFlash('warning', 'Cette équipe est déjà liée à ce projet.');
-                    return $this->redirectToRoute('projet_teams', ['id_projet' => $projet->getId()]);
+                    return $this->redirectToRoute('projet_teams', ['projet' => $projet->getId()]);
                 }
             }
 
-            // Création de la relation LIER
             $lier = new Lier();
             $lier->setProjet($projet);
             $lier->setTeam($team);
@@ -109,17 +110,16 @@ final class ProjetController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Équipe ajoutée au projet.');
-            return $this->redirectToRoute('projet_teams', ['id_projet' => $projet->getId()]);
+            return $this->redirectToRoute('projet_teams', ['projet' => $projet->getId()]);
         }
-
+        //dd( $projet->getLiers());
         return $this->render('projet/teams.html.twig', [
             'projet' => $projet,
-            'teams' => $projet->getLiers(),
             'form' => $form->createView()
         ]);
     }
 
-    #[Route('/{id_projet}/team/{id}/remove', name: 'projet_team_remove')]
+    #[Route('/{projet}/team/{id}/remove', name: 'projet_team_remove')]
     public function removeTeam(Projet $projet, Lier $lier, EntityManagerInterface $em): Response
     {
         $em->remove($lier);
@@ -127,6 +127,54 @@ final class ProjetController extends AbstractController
 
         $this->addFlash('success', 'Équipe retirée du projet.');
 
-        return $this->redirectToRoute('projet_teams', ['id_projet' => $projet->getId()]);
+        return $this->redirectToRoute('projet_teams', ['projet' => $projet->getId()]);
+    }
+
+    #recuperation des taches associées
+    #[Route('/{projet}/taches', name: 'app_projet_taches', methods: ['GET'])]
+    public function taches(Projet $projet, TacheRepository $tacheRepository): Response
+    {
+    $taches = $tacheRepository->findBy(['projet' => $projet]);
+
+    return $this->render('projet/taches.html.twig', [
+        'projet' => $projet,
+        'taches' => $taches,
+    ]);
+    }
+    #[Route('/{projet}/add-equipe', name: 'app_projet_add_team', methods: ['POST'])]
+    public function addEquipe(Projet $projet, Request $request, EntityManagerInterface $em, TeamRepository $teamRepo): Response
+    {
+        $teamId = $request->request->get('team_id');
+        if (!$teamId) {
+            $this->addFlash('error', 'Aucune équipe sélectionnée.');
+            return $this->redirectToRoute('projet_teams', ['projet' => $projet->getId()]);
+        }
+
+        $team = $teamRepo->find($teamId);
+        if (!$team) {
+            $this->addFlash('error', 'Équipe non trouvée.');
+            return $this->redirectToRoute('projet_teams', ['projet' => $projet->getId()]);
+        }
+
+        // Vérifier si déjà lié
+        foreach ($projet->getLiers() as $lien) {
+            if ($lien->getTeam() === $team) {
+                $this->addFlash('warning', 'Cette équipe est déjà liée à ce projet.');
+                return $this->redirectToRoute('projet_teams', ['projet' => $projet->getId()]);
+            }
+        }
+
+        // Création de la relation LIER
+        $lier = new Lier();
+        $lier->setProjet($projet);
+        $lier->setTeam($team);
+
+        $em->persist($lier);
+        $em->flush();
+
+        $this->addFlash('success', 'Équipe ajoutée au projet.');
+
+        return $this->redirectToRoute('projet_teams', ['projet' => $projet->getId()]);
+
     }
 }

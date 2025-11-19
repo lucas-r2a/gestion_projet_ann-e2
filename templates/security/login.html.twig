@@ -22,6 +22,18 @@
             {% endif %}
 
             <form method="post" class="space-y-4">
+                
+                <div>
+                    <label for="name" class="block text-gray-700 font-medium mb-1">Name</label>
+                    <input
+                        type="name"
+                        name="_name"
+                        id="name"
+                        autocomplete="current-name"
+                        required
+                        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                </div>
                 <div>
                     <label for="username" class="block text-gray-700 font-medium mb-1">Email</label>
                     <input

@@ -23,12 +23,12 @@
         <tbody>
             {% for p in projets %}
             <tr class="border-b">
-                <td class="px-4 py-3 font-semibold">{{ p.nom }}</td>
+                <td class="px-4 py-3 font-semibold">{{ p.name }}</td>
                 <td class="px-4 py-3">{{ p.description|slice(0, 60) ~ '...' }}</td>
                 <td class="px-4 py-3 flex gap-2 justify-center">
-                    <a href="{{ path('app_projet_show', {id_projet: p.idProjet}) }}"
+                    <a href="{{ path('app_projet_show', {id: p.id}) }}"
                        class="px-3 py-1 bg-blue-500 text-white rounded">Voir</a>
-                    <a href="{{ path('app_projet_edit', {id_projet: p.idProjet}) }}"
+                    <a href="{{ path('app_projet_edit', {id: p.id}) }}"
                        class="px-3 py-1 bg-yellow-500 text-white rounded">Éditer</a>
                 </td>
             </tr>

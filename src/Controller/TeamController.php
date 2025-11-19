@@ -85,7 +85,7 @@ final class TeamController extends AbstractController
 
 
     #Ajouter des membres
-    #[Route('/{idEquipe}/add-member', name: 'team_add_member', methods: ['GET', 'POST'])]
+    #[Route('/{idTeam}/add-member', name: 'team_add_member', methods: ['GET', 'POST'])]
     public function addMember(Request $request, Team $team, EntityManagerInterface $em): Response
     {
         $composer = new Composer();
@@ -121,12 +121,12 @@ final class TeamController extends AbstractController
             $this->addFlash('success', 'Membre retiré de l’équipe.');
         }
 
-        return $this->redirectToRoute('team_show', ['idEquipe' => $teamId]);
+        return $this->redirectToRoute('team_show', ['idTeam' => $teamId]);
     }
 
     
     // ajouter equipe au projets 
-    #[Route('/{idEquipe}/add-project', name: 'team_add_project', methods: ['GET', 'POST'])]
+    #[Route('/{team}/add-project', name: 'team_add_project', methods: ['GET', 'POST'])]
     public function addProject(Request $request, Team $team, EntityManagerInterface $em): Response
     {
         $lier = new Lier();
@@ -143,7 +143,7 @@ final class TeamController extends AbstractController
             return $this->redirectToRoute('team_show', ['idTeam' => $team->getId()]);
         }
 
-        return $this->render('team/add_project.html.twig', [
+        return $this->render('team/add_projet.html.twig', [
             'team' => $team,
             'form' => $form->createView(),
         ]);
@@ -162,6 +162,6 @@ final class TeamController extends AbstractController
             $this->addFlash('success', 'Projet retiré de l’équipe.');
         }
 
-        return $this->redirectToRoute('team_show', ['idEquipe' => $teamId]);
+        return $this->redirectToRoute('team_show', ['idTeam' => $teamId]);
     }
 }

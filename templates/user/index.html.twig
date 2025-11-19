@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
-{% block title %}Liste des utilisateurs{% endblock %}
+{% block title %}List User{% endblock %}
 
 {% block body %}
 <div class="bg-white p-6 rounded-xl shadow">
     <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-semibold">Utilisateurs</h2>
+        <h2 class="text-2xl font-semibold">users</h2>
 
-        <a href="{{ path('app_utilisateur_new') }}"
+        <a href="{{ path('app_user_new') }}"
            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
             + Ajouter
         </a>
@@ -21,20 +21,20 @@
             </tr>
         </thead>
         <tbody>
-            {% for u in utilisateurs %}
+            {% for u in users %}
                 <tr class="border-b">
                     <td class="px-4 py-3">{{ u.nomPrenom }}</td>
                     <td class="px-4 py-3">{{ u.email }}</td>
                     <td class="px-4 py-3 flex gap-2 justify-center">
-                        <a href="{{ path('app_utilisateur_show', {id_utilisateur: u.idUtilisateur}) }}"
+                        <a href="{{ path('app_user_show', {id_user: u.iduser}) }}"
                            class="px-3 py-1 bg-blue-500 text-white rounded">Voir</a>
-                        <a href="{{ path('app_utilisateur_edit', {id_utilisateur: u.idUtilisateur}) }}"
+                        <a href="{{ path('app_user_edit', {id_user: u.iduser}) }}"
                            class="px-3 py-1 bg-yellow-500 text-white rounded">Éditer</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3" class="text-center py-4 text-gray-500">Aucun utilisateur</td>
+                    <td colspan="3" class="text-center py-4 text-gray-500">None user</td>
                 </tr>
             {% endfor %}
         </tbody>

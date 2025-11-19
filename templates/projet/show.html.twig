@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ projet.nom }}{% endblock %}
+{% block title %}{{ projet.name }}{% endblock %}
 
 {% block body %}
 <div class="bg-white p-6 rounded-xl shadow">
 
-    <h2 class="text-2xl font-semibold mb-4">{{ projet.nom }}</h2>
+    <h2 class="text-2xl font-semibold mb-4">{{ projet.name }}</h2>
 
     <p class="mb-4">{{ projet.description }}</p>
 
     <div class="flex gap-4 mb-6">
-        <a href="{{ path('app_projet_edit', {id_projet: projet.idProjet}) }}"
+        <a href="{{ path('app_projet_edit', {id: projet.id}) }}"
            class="bg-yellow-500 text-white px-4 py-2 rounded">Modifier</a>
 
-        <form method="post" action="{{ path('app_projet_delete', {id_projet: projet.idProjet}) }}"
+        <form method="post" action="{{ path('app_projet_delete', {id: projet.id}) }}"
               onsubmit="return confirm('Supprimer ce projet ?');">
-            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ projet.idProjet) }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ projet.id) }}">
             <button class="bg-red-600 text-white px-4 py-2 rounded">Supprimer</button>
         </form>
     </div>
@@ -22,12 +22,12 @@
     <hr class="my-6">
 
     <div class="flex gap-4">
-        <a href="{{ path('app_projet_equipes', {id_projet: projet.idProjet}) }}"
+        <a href="{{ path('projet_teams', {id_projet: projet.id}) }}"
            class="bg-blue-600 text-white px-4 py-2 rounded">
             Voir équipes liées
         </a>
 
-        <a href="{{ path('app_projet_taches', {id_projet: projet.idProjet}) }}"
+        <a href="{{ path('app_projet_taches', {id: projet.id}) }}"
            class="bg-green-600 text-white px-4 py-2 rounded">
             Voir tâches du projet
         </a>

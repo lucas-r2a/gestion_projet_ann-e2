@@ -33,13 +33,13 @@ class Projet
     /**
      * @var Collection<int, Tache>
      */
-    #[ORM\OneToMany(targetEntity: Tache::class, mappedBy: 'id_projet')]
+    #[ORM\OneToMany(targetEntity: Tache::class, mappedBy: 'projet')]
     private Collection $taches;
 
     /**
      * @var Collection<int, Lier>
      */
-    #[ORM\OneToMany(targetEntity: Lier::class, mappedBy: 'idProjet')]
+    #[ORM\OneToMany(targetEntity: Lier::class, mappedBy: 'projet')]
     private Collection $liers;
 
     public function __construct()

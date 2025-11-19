@@ -35,7 +35,7 @@ class Tache
 
     #[ORM\ManyToOne(inversedBy: 'taches')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Projet $id_projet = null;
+    private ?Projet $projet = null;
 
     /**
      * @var Collection<int, Assigner>
@@ -129,12 +129,12 @@ class Tache
 
     public function getIdProjet(): ?Projet
     {
-        return $this->id_projet;
+        return $this->projet;
     }
 
-    public function setIdProjet(?Projet $id_projet): static
+    public function setIdProjet(?Projet $projet): static
     {
-        $this->id_projet = $id_projet;
+        $this->projet = $projet;
 
         return $this;
     }

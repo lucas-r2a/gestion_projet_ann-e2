@@ -20,7 +20,7 @@
             <li class="text-gray-500">Aucun membre</li>
         {% endfor %}
     </ul>
-    <a href="{{ path('team_add_member', {'idEquipe': team.id}) }}" class="mt-2 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Ajouter un membre</a>
+    <a href="{{ path('team_add_member', {'idTeam': team.id}) }}" class="mt-2 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Ajouter un membre</a>
 </div>
 
 <div class="mb-6">
@@ -38,7 +38,7 @@
             <li class="text-gray-500">Aucun projet</li>
         {% endfor %}
     </ul>
-    <a href="{{ path('team_add_project', {'idEquipe': team.id}) }}" class="mt-2 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Ajouter un projet</a>
+    <a href="{{ path('team_add_project', {'idTeam': team.id}) }}" class="mt-2 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Ajouter un projet</a>
 </div>
 
 <a href="{{ path('app_team_index') }}" class="text-blue-600 hover:underline">← Retour à la liste</a>
