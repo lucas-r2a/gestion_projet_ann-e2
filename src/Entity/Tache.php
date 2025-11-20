@@ -40,7 +40,7 @@ class Tache
     /**
      * @var Collection<int, Assigner>
      */
-    #[ORM\OneToMany(targetEntity: Assigner::class, mappedBy: 'id_tache')]
+    #[ORM\OneToMany(targetEntity: Assigner::class, mappedBy: 'tache')]
     private Collection $assigners;
 
     public function __construct()

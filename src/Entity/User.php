@@ -42,13 +42,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Composer>
      */
-    #[ORM\OneToMany(targetEntity: Composer::class, mappedBy: 'id_user')]
+    #[ORM\OneToMany(targetEntity: Composer::class, mappedBy: 'user')]
     private Collection $composers;
 
     /**
      * @var Collection<int, Assigner>
      */
-    #[ORM\OneToMany(targetEntity: Assigner::class, mappedBy: 'id_user')]
+    #[ORM\OneToMany(targetEntity: Assigner::class, mappedBy: 'user')]
     private Collection $assigners;
 
     public function __construct()

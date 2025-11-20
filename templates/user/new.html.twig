@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
-{% block title %}Nouvel user{% endblock %}
+{% block title %}New user{% endblock %}
 
 {% block body %}
 <div class="bg-white p-6 rounded-xl shadow max-w-xl mx-auto">
-    <h2 class="text-2xl font-semibold mb-4">Créer un user</h2>
+    <h2 class="text-2xl font-semibold mb-4">Create an user</h2>
 
     {{ form_start(form) }}
 
         <div class="mb-4">
-            {{ form_label(form.nom_prenom) }}
-            {{ form_widget(form.nom_prenom, {'attr': {'class': 'w-full p-2 border rounded'}}) }}
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name, {'attr': {'class': 'w-full p-2 border rounded'}}) }}
         </div>
 
         <div class="mb-4">
@@ -18,8 +18,8 @@
         </div>
 
         <div class="mb-4">
-            {{ form_label(form.mot_de_passe) }}
-            {{ form_widget(form.mot_de_passe, {'attr': {'class': 'w-full p-2 border rounded'}}) }}
+            {{ form_label(form.password) }}
+            {{ form_widget(form.password, {'attr': {'class': 'w-full p-2 border rounded'}}) }}
         </div>
 
         <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">

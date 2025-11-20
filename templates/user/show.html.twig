@@ -1,27 +1,27 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ user.nomPrenom }}{% endblock %}
+{% block title %}{{ user.name }}{% endblock %}
 
 {% block body %}
 <div class="bg-white p-6 rounded-xl shadow max-w-xl mx-auto">
 
-    <h2 class="text-2xl font-semibold mb-4">{{ user.nomPrenom }}</h2>
+    <h2 class="text-2xl font-semibold mb-4">{{ user.name }}</h2>
 
     <p><strong>Email :</strong> {{ user.email }}</p>
 
     <div class="flex gap-4 mt-4">
-        <a href="{{ path('app_user_edit', {id_user: user.iduser}) }}"
+        <a href="{{ path('app_user_edit', {'user': user.id}) }}"
            class="bg-yellow-500 px-4 py-2 text-white rounded">Modifier</a>
 
-        <form method="post" action="{{ path('app_user_delete', {id_user: user.iduser}) }}"
+        <form method="post" action="{{ path('app_user_delete', {'user': user.id}) }}"
               onsubmit="return confirm('Supprimer cet user ?');">
-            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.iduser) }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
             <button class="bg-red-600 px-4 py-2 text-white rounded">Supprimer</button>
         </form>
     </div>
 
     <hr class="my-6">
 
-    <a href="{{ path('app_user_assignations', {id_user: user.iduser}) }}"
+    <a href="{{ path('app_user_assignations', {'user': user}) }}"
        class="bg-blue-600 text-white px-4 py-2 rounded">
         Voir les assignations
     </a>

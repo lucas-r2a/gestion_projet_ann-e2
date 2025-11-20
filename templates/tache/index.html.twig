@@ -21,9 +21,9 @@
             <td class="px-4 py-2">{{ tache.titre }}</td>
             <td class="px-4 py-2">{{ tache.statut }}</td>
             <td class="px-4 py-2 flex gap-2">
-                <a href="{{ path('app_tache_show', {'id': tache.id}) }}" class="text-blue-600 hover:underline">Voir</a>
-                <a href="{{ path('app_tache_edit', {'id': tache.id}) }}" class="text-yellow-600 hover:underline">Modifier</a>
-                <form method="post" action="{{ path('app_tache_delete', {'id': tache.id}) }}" onsubmit="return confirm('Supprimer cette tâche ?');">
+                <a href="{{ path('app_tache_show', {'tache': tache.id}) }}" class="text-blue-600 hover:underline">Voir</a>
+                <a href="{{ path('app_tache_edit', {'tache': tache.id}) }}" class="text-yellow-600 hover:underline">Modifier</a>
+                <form method="post" action="{{ path('app_tache_delete', {'tache': tache.id}) }}" onsubmit="return confirm('Supprimer cette tâche ?');">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tache.id) }}">
                     <button class="text-red-600 hover:underline" type="submit">Supprimer</button>
                 </form>

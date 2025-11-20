@@ -17,11 +17,11 @@ class AssignationType extends AbstractType
         $builder
             ->add('tache', EntityType::class, [
                 'class' => Tache::class,
-                'choice_label' => 'id',
+                'choice_label' => 'titre',
             ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
         ;
     }

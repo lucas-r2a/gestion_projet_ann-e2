@@ -45,7 +45,7 @@ final class TacheController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_tache_show', methods: ['GET'])]
+    #[Route('/{tache}', name: 'app_tache_show', methods: ['GET'])]
     public function show(Tache $tache): Response
     {
         return $this->render('tache/show.html.twig', [
@@ -53,7 +53,7 @@ final class TacheController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_tache_edit', methods: ['GET', 'POST'])]
+    #[Route('/{tache}/edit', name: 'app_tache_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Tache $tache, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(TacheType::class, $tache);
@@ -71,7 +71,7 @@ final class TacheController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_tache_delete', methods: ['POST'])]
+    #[Route('/{tache}', name: 'app_tache_delete', methods: ['POST'])]
     public function delete(Request $request, Tache $tache, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$tache->getId(), $request->getPayload()->getString('_token'))) {
@@ -83,7 +83,7 @@ final class TacheController extends AbstractController
     }
 
     
-     #[Route('/{id_tache}/assigner', name: 'tache_assigner', methods: ['GET', 'POST'])]
+     #[Route('/{tache}/assigner', name: 'tache_assigner', methods: ['GET', 'POST'])]
     public function assigner(Tache $tache, Request $request, EntityManagerInterface $em, 
     UserRepository $userRepo): Response {
         $assignation = new Assigner();
@@ -121,7 +121,7 @@ final class TacheController extends AbstractController
 
     
     #MISE À JOUR DU STATUT
-    #[Route('/{id_tache}/statut/{new}', name: 'tache_update_statut', methods: ['GET'])]
+    #[Route('/{tache}/statut/{new}', name: 'tache_update_statut', methods: ['GET'])]
     public function updateStatus(Tache $tache, string $new, EntityManagerInterface $em): Response
     {
         $tache->setStatut($new);

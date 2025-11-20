@@ -21,7 +21,7 @@ final class UserController extends AbstractController
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'user' => $userRepository->findAll(),
         ]);
     }
 
@@ -45,7 +45,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
+    #[Route('/{user}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
@@ -53,7 +53,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    #[Route('/{user}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(UserType::class, $user);
@@ -71,7 +71,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
+    #[Route('/{user}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->getString('_token'))) {
@@ -83,7 +83,7 @@ final class UserController extends AbstractController
     }
 
     # gestion des assignations aux users
-    #[Route('/{id_user}/assignations', name: 'app_user_assignations', methods: ['GET'])]
+    #[Route('/{id}/assignations', name: 'app_user_assignations', methods: ['GET'])]
     public function assignations(User $user): Response
     {
         return $this->render('user/assignations.html.twig', [
@@ -92,9 +92,9 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #ajouter des assignations
-    #[Route('/{id_user}/assigner', name: 'app_user_add_assignation', methods: ['GET', 'POST'])]
-    public function addAssignation(Request $request, User $user, EntityManagerInterface $em, TacheRepository $tacheRepo): Response
+    # ajouter des assignations
+    #[Route('/{id}/assigner', name: 'app_user_add_assignation', methods: ['GET', 'POST'])]
+    public function addAssignation(Request $request, User $user, EntityManagerInterface $em): Response
     {
         $assigner = new Assigner();
         $assigner->setUser($user);
@@ -107,7 +107,7 @@ final class UserController extends AbstractController
             $em->flush();
 
             return $this->redirectToRoute('app_user_assignations', [
-                'id_user' => $user->getId()
+                'id' => $user->getId()
             ]);
         }
 
@@ -117,7 +117,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #supprimer des assignations
+    # supprimer des assignations
     #[Route('/assignation/{id}/remove', name: 'app_user_remove_assignation', methods: ['POST'])]
     public function removeAssignation(Request $request, Assigner $assigner, EntityManagerInterface $em): Response
     {
@@ -129,7 +129,8 @@ final class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('app_user_assignations', [
-            'id_user' => $userId
+            'id' => $userId
         ]);
     }
+
 }

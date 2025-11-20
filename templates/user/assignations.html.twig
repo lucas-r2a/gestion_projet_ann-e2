@@ -4,9 +4,9 @@
 {% block body %}
 <div class="bg-white p-6 rounded-xl shadow">
 
-    <h2 class="text-2xl font-semibold mb-4">Tâches assignées à {{ utilisateur.nomPrenom }}</h2>
+    <h2 class="text-2xl font-semibold mb-4">Tâches assignées</h2>
 
-    <a href="{{ path('app_user_add_assignation', {id_utilisateur: utilisateur.idUtilisateur}) }}"
+    <a href="{{ path('app_user_add_assignation', {'id': user.id}) }}"
        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded mb-4 inline-block">
         + Assigner une tâche
     </a>
@@ -14,9 +14,9 @@
     <table class="w-full bg-white border-collapse shadow rounded-md overflow-hidden">
         <thead class="bg-gray-200">
             <tr>
-                <th class="px-4 py-3">Titre</th>
-                <th class="px-4 py-3">Statut</th>
-                <th class="px-4 py-3">Actions</th>
+                <td class="px-4 py-3">Titre</td>
+                <td class="px-4 py-3">Statut</td>
+                <td class="px-4 py-3">Actions</td>
             </tr>
         </thead>
 
@@ -27,7 +27,7 @@
                 <td class="px-4 py-3">{{ a.tache.statut }}</td>
                 <td class="px-4 py-3">
                     <form method="post"
-                          action="{{ path('app_user_remove_assignation', {id: a.id}) }}"
+                          action="{{ path('app_user_remove_assignation', {'id': a.id}) }}"
                           onsubmit="return confirm('Retirer cette assignation ?');">
                         <input type="hidden" name="_token" value="{{ csrf_token('remove_assignation' ~ a.id) }}">
                         <button class="bg-red-600 px-3 py-1 text-white rounded">X</button>
