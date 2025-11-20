@@ -11,22 +11,8 @@
 <div class="flex gap-2 mt-4">
     <a href="{{ path('app_tache_edit', {'tache': tache.id}) }}" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Modifier</a>
     <a href="{{ path('app_tache_index') }}" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Retour</a>
-    <a href="{{ path('tache_assigner', {'tache': tache.id}) }}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Assigner</a>
 </div>
 
-<h2 class="text-xl font-semibold mt-6 mb-2">Assignations</h2>
-<ul class="list-disc list-inside">
-    {% for assign in tache.assigners %}
-        <li class="flex justify-between items-center">
-            {{ assign.user.name }}
-            <form method="post" action="{{ path('tache_remove_assignation', {'id_tache': assign.id}) }}" onsubmit="return confirm('Supprimer cette assignation ?');">
-                <button class="text-red-600 hover:underline" type="submit">Supprimer</button>
-            </form>
-        </li>
-    {% else %}
-        <li class="text-gray-500">Aucune assignation.</li>
-    {% endfor %}
-</ul>
 
 <h2 class="text-xl font-semibold mt-6 mb-2">Changer le statut</h2>
 <div class="flex gap-2">

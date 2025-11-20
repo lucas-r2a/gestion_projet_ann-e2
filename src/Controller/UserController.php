@@ -84,11 +84,11 @@ final class UserController extends AbstractController
 
     # gestion des assignations aux users
     #[Route('/{id}/assignations', name: 'app_user_assignations', methods: ['GET'])]
-    public function assignations(User $user): Response
+    public function assignations(User $userId): Response
     {
         return $this->render('user/assignations.html.twig', [
-            'user' => $user,
-            'assignations' => $user->getAssigners(),
+            'user' => $userId,
+            'assignations' => $userId->getAssigners(),
         ]);
     }
 

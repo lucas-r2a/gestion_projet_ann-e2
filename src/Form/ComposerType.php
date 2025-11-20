@@ -7,6 +7,7 @@ use App\Entity\Team;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,7 +16,15 @@ class ComposerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('role')
+            ->add('role', ChoiceType::class,[
+                'choices' => [
+                    'User' => "User",
+                    "Manager" => "Manager",
+                ],
+                'multiple' => false,
+                'expanded' => false,  
+                'label' => 'Role',
+            ])
             ->add('team', EntityType::class, [
                 'class' => Team::class,
                 'choice_label' => 'name',

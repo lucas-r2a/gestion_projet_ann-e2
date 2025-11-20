@@ -21,10 +21,11 @@
 
     <hr class="my-6">
 
-    <a href="{{ path('app_user_assignations', {'user': user}) }}"
-       class="bg-blue-600 text-white px-4 py-2 rounded">
+    <a href="{{ path('app_user_assignations', {'id': user.id}) }}"
+    class="bg-blue-600 text-white px-4 py-2 rounded">
         Voir les assignations
     </a>
+
 
 </div>
 {% endblock %}
