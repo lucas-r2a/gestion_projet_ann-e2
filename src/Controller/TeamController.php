@@ -114,10 +114,10 @@ final class TeamController extends AbstractController
 
     #supprimer des membres 
     #[Route('/remove-member/{id}', name: 'team_remove_member', methods: ['POST'])]
-    public function removeMember(Request $request, Composer $composer, EntityManagerInterface $em): Response
+    public function removeMember(Request $request, Composer $composer, EntityManagerInterface $em, int $id): Response
     {
+        
         $teamId = $composer->getTeam()->getId();
-
         if ($this->isCsrfTokenValid('remove_member'.$composer->getId(), $request->request->get('_token'))) {
             $em->remove($composer);
             $em->flush();
@@ -125,7 +125,7 @@ final class TeamController extends AbstractController
             $this->addFlash('success', 'Membre retiré de l’équipe.');
         }
 
-        return $this->redirectToRoute('app_team_show', ['idTeam' => $teamId]);
+        return $this->redirectToRoute('app_team_show', ['id' => $teamId]);
     }
 
     

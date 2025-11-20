@@ -14,13 +14,6 @@
 </div>
 
 
-<h2 class="text-xl font-semibold mt-6 mb-2">Changer le statut</h2>
-<div class="flex gap-2">
-    {% for statut in ['En cours', 'Terminé', 'En attente'] %}
-        <a href="{{ path('tache_update_statut', {'tache': tache.id, 'new': statut}) }}" class="px-3 py-1 rounded {{ tache.statut == statut ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800 hover:bg-gray-300' }}">
-            {{ statut }}
-        </a>
-    {% endfor %}
-</div>
+
 
 {% endblock %}

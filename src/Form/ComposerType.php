@@ -18,8 +18,8 @@ class ComposerType extends AbstractType
         $builder
             ->add('role', ChoiceType::class,[
                 'choices' => [
-                    'User' => "User",
-                    "Manager" => "Manager",
+                    'User' => "ROLE_USER",
+                    "Manager" => "ROLE_MANAGER",
                 ],
                 'multiple' => false,
                 'expanded' => false,  

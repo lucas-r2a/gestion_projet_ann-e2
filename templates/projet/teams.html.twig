@@ -6,7 +6,7 @@
 <h1 class="text-3xl font-bold mb-6">Équipes du projet « {{ projet.name }} »</h1>
 
 
-<div class="bg-white p-6 rounded-lg shadow mb-10">
+{# <div class="bg-white p-6 rounded-lg shadow mb-10">
     <h2 class="text-xl font-semibold mb-4">Ajouter une équipe</h2>
 
     <form action="{{ path('app_projet_add_team', {'projet': projet.id}) }}" method="post" class="space-y-4">
@@ -25,7 +25,7 @@
 
         {{ form_end(form) }}
     </form>
-</div>
+</div> #}
 
 <a href="{{ path('app_team_new') }}"
            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
@@ -35,7 +35,7 @@
 <hr class="my-8">
 
 {# --- Liste des équipes liées --- #}
-<h2 class="text-2xl font-semibold mb-4">Équipes déjà liées</h2>
+<h2 class="text-2xl font-semibold mb-4">Équipes liées</h2>
 
 {% if projet.liers|length > 0 %}
     <ul class="space-y-3">
