@@ -94,7 +94,7 @@ final class ProjetController extends AbstractController
         {
             $team = $form->get('team')->getData();
 
-            // Vérifier si déjà lié
+            // si equipe deja lie?
             foreach ($projet->getLiers() as $lien) {
                 if ($lien->getTeam() === $team) {
                     $this->addFlash('warning', 'Cette équipe est déjà liée à ce projet.');
@@ -134,12 +134,12 @@ final class ProjetController extends AbstractController
     #[Route('/{projet}/taches', name: 'app_projet_taches', methods: ['GET'])]
     public function taches(Projet $projet, TacheRepository $tacheRepository): Response
     {
-    $taches = $tacheRepository->findBy(['projet' => $projet]);
+        $taches = $tacheRepository->findBy(['projet' => $projet]);
 
-    return $this->render('projet/taches.html.twig', [
-        'projet' => $projet,
-        'taches' => $taches,
-    ]);
+        return $this->render('projet/taches.html.twig', [
+            'projet' => $projet,
+            'taches' => $taches,
+        ]);
     }
     #[Route('/{projet}/add-equipe', name: 'app_projet_add_team', methods: ['POST'])]
     public function addEquipe(Projet $projet, Request $request, EntityManagerInterface $em, TeamRepository $teamRepo): Response

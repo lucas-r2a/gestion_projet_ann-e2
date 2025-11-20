@@ -39,7 +39,7 @@
 
 {% if projet.liers|length > 0 %}
     <ul class="space-y-3">
-        {% for lier in teams %}
+        {% for lier in projet.liers %}
             <li class="bg-white p-4 rounded shadow flex justify-between items-center">
                 <span class="font-medium">{{ lier.team.name }}</span>
 

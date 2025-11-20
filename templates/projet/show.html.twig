@@ -22,12 +22,12 @@
     <hr class="my-6">
 
     <div class="flex gap-4">
-        <a href="{{ path('projet_teams', {id_projet: projet.id}) }}"
+        <a href="{{ path('projet_teams', {'projet': projet.id}) }}"
            class="bg-blue-600 text-white px-4 py-2 rounded">
             Voir équipes liées
         </a>
 
-        <a href="{{ path('app_projet_taches', {id: projet.id}) }}"
+        <a href="{{ path('app_projet_taches', {'projet': projet.id}) }}"
            class="bg-green-600 text-white px-4 py-2 rounded">
             Voir tâches du projet
         </a>

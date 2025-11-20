@@ -6,7 +6,7 @@
 
     <h2 class="text-2xl font-semibold mb-4">Tâches du projet : {{ projet.name }}</h2>
 
-    <a href="{{ path('app_projet_add_tache', {id: projet.id}) }}"
+    <a href="{{ path('app_tache_new') }}"
        class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded mb-4 inline-block">
         + Ajouter une tâche
     </a>
@@ -14,9 +14,9 @@
     <table class="w-full bg-white border-collapse shadow rounded-md overflow-hidden">
         <thead class="bg-gray-200">
             <tr>
-                <th class="px-4 py-3">Titre</th>
-                <th class="px-4 py-3">Statut</th>
-                <th class="px-4 py-3">Actions</th>
+                <td class="px-4 py-3">Titre</td>
+                <td class="px-4 py-3">Statut</td>
+                <td class="px-4 py-3">Actions</td>
             </tr>
         </thead>
 
@@ -27,9 +27,9 @@
                 <td class="px-4 py-3">{{ t.statut }}</td>
                 <td class="px-4 py-3">
                     <form method="post"
-                          action="{{ path('app_projet_remove_tache', {id: t.idPossede}) }}"
+                          action="{{ path('app_tache_delete', {'tache': t.id}) }}"
                           onsubmit="return confirm('Retirer cette tâche ?');">
-                        <input type="hidden" name="_token" value="{{ csrf_token('remove_tache' ~ t.idPossede) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('remove_tache' ~ t.id) }}">
                         <button class="bg-red-600 px-3 py-1 text-white rounded">X</button>
                     </form>
                 </td>
