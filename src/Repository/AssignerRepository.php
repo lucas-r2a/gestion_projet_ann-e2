@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Assigner;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -15,6 +16,18 @@ class AssignerRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Assigner::class);
     }
+
+    public function findTachesByUser(User $user): array
+    {
+        return $this->createQueryBuilder('a')
+            ->select('t')
+            ->join('a.tache', 't')
+            ->where('a.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     //    /**
     //     * @return Assigner[] Returns an array of Assigner objects

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Tâches Assignées{% endblock %}
+
+{% block body %}
+<h1 class="text-2xl font-bold mb-4">Mes Tâches Assignées</h1>
+
+<table class="min-w-full bg-white shadow mt-4 rounded overflow-hidden">
+    <thead class="bg-gray-200 text-left">
+        <tr>
+            <th class="px-4 py-2">Titre</th>
+            <th class="px-4 py-2">Statut</th>
+            <th class="px-4 py-2">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for tache in taches %}
+        <tr class="border-b">
+            <td class="px-4 py-2">{{ tache.titre }}</td>
+            <td class="px-4 py-2">{{ tache.statut }}</td>
+            <td class="px-4 py-2 flex gap-2">
+                <a href="{{ path('app_tache_show', {'id': tache.id}) }}" class="text-blue-600 hover:underline">Voir</a>
+                <a href="{{ path('app_tache_edit', {'id': tache.id}) }}" class="text-yellow-600 hover:underline">Modifier</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="3" class="px-4 py-2 text-gray-500 text-center">
+                Aucune tâche ne vous est assignée.
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

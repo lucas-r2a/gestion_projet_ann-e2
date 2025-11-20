@@ -6,6 +6,7 @@ use App\Entity\Assigner;
 use App\Entity\User;
 use App\Form\AssignationType;
 use App\Form\UserType;
+use App\Repository\AssignerRepository;
 use App\Repository\TacheRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -78,7 +79,7 @@ final class UserController extends AbstractController
             $entityManager->remove($user);
             $entityManager->flush();
         }
-
+        
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -130,6 +131,17 @@ final class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_assignations', [
             'id' => $userId
+        ]);
+    }
+
+    #[Route('/taches', name: 'app_user_mesTaches')]
+    public function mesTaches(AssignerRepository $assignerRepo): Response
+    {
+        $user = $this->getUser();
+        $taches = $assignerRepo->findTachesByUser($user);
+
+        return $this->render('user/mes_taches.html.twig', [
+            'taches' => $taches,
         ]);
     }
 

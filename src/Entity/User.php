@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -42,13 +43,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Composer>
      */
-    #[ORM\OneToMany(targetEntity: Composer::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Composer::class, mappedBy: 'user', cascade:["remove"])]
     private Collection $composers;
 
     /**
      * @var Collection<int, Assigner>
      */
-    #[ORM\OneToMany(targetEntity: Assigner::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Assigner::class, mappedBy: 'user', cascade:["remove"])]
     private Collection $assigners;
 
     public function __construct()
@@ -209,4 +210,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+   
+
 }

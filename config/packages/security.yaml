@@ -34,8 +34,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/taches, roles: ROLE_USER }
-        - { path: ^/user, roles: ROLE_USER }
+        - { path: ^/user/taches, roles: ROLE_USER }
 
         - { path: ^/projet, roles: ROLE_MANAGER }
         - { path: ^/user, roles: ROLE_MANAGER }

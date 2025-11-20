@@ -40,7 +40,7 @@ class Tache
     /**
      * @var Collection<int, Assigner>
      */
-    #[ORM\OneToMany(targetEntity: Assigner::class, mappedBy: 'tache')]
+    #[ORM\OneToMany(targetEntity: Assigner::class, mappedBy: 'tache', cascade:["remove"])]
     private Collection $assigners;
 
     public function __construct()
@@ -168,4 +168,5 @@ class Tache
 
         return $this;
     }
+
 }
