@@ -138,7 +138,7 @@ final class UserController extends AbstractController
     #[Route('/{id}/taches', name: 'app_user_mesTaches')]
     public function mesTaches(AssignerRepository $assignerRepo, User $user): Response
     {
-        // $taches = $assignerRepo->findTachesByUser($user);
+        
         return $this->render('user/mes_taches.html.twig', [
             'user' => $user,
             'assignations' => $user->getAssigners(), 

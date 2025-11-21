@@ -13,10 +13,12 @@
     <div class="container mx-auto flex justify-between">
         <h1 class="font-bold text-xl">ProjetManager</h1>
         <div class="flex gap-4">
-            <a href="{{ path('app_user_index') }}" class="hover:underline">User</a>
-            <a href="{{ path('app_projet_index') }}" class="hover:underline">Projet</a>
-            <a href="{{ path('app_tache_index') }}" class="hover:underline">Tache</a>
-            <a href="{{ path('app_team_index') }}" class="hover:underline">Team</a>
+            {% if is_granted('ROLE_MANAGER') %}
+                <a href="{{ path('app_user_index') }}" class="hover:underline">User</a>
+                <a href="{{ path('app_projet_index') }}" class="hover:underline">Projet</a>
+                <a href="{{ path('app_tache_index') }}" class="hover:underline">Tache</a>
+                <a href="{{ path('app_team_index') }}" class="hover:underline">Team</a>
+            {% endif %}
             {% if app.user %}
                 <a href="{{ path('app_user_mesTaches', { id: app.user.id }) }}" class="hover:underline">
                 Mes Tâches

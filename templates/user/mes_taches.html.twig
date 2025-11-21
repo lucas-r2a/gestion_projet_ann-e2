@@ -26,12 +26,18 @@
                 <td class="px-4 py-3">{{ a.tache.titre }}</td>
                 <td class="px-4 py-3">{{ a.tache.statut }}</td>
                 <td class="px-4 py-2 flex gap-2">
-                    <form method="post"
+                    <a href="{{ path('app_tache_edit', {'tache': a.getTache().id}) }}"
+                    class="text-yellow-600 hover:underline">
+                    Modifier
+                    </a>
+                    
+
+                    {# <form method="post"
                           action="{{ path('app_user_remove_assignation', {'id': a.id}) }}"
                           onsubmit="return confirm('Retirer cette assignation ?');">
                         <input type="hidden" name="_token" value="{{ csrf_token('remove_assignation' ~ a.id) }}">
                         <button class="bg-red-600 px-3 py-1 text-white rounded">X</button>
-                    </form>
+                    </form> #}
                 </td>
             </tr>
         {% else %}
