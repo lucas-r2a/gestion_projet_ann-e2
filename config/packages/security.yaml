@@ -37,7 +37,6 @@ security:
         - { path: ^/user/taches, roles: ROLE_USER }
 
         - { path: ^/projet, roles: ROLE_MANAGER }
-        - { path: ^/user, roles: ROLE_MANAGER }
         - { path: ^/team, roles: ROLE_MANAGER }
         - { path: ^/taches, roles: ROLE_MANAGER }
 

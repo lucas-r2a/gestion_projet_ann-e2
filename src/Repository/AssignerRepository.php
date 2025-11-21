@@ -17,16 +17,16 @@ class AssignerRepository extends ServiceEntityRepository
         parent::__construct($registry, Assigner::class);
     }
 
-    public function findTachesByUser(User $user): array
-    {
-        return $this->createQueryBuilder('a')
-            ->select('t')
-            ->join('a.tache', 't')
-            ->where('a.user = :user')
-            ->setParameter('user', $user)
-            ->getQuery()
-            ->getResult();
-    }
+    // public function findTachesByUser(User $user): array
+    // {
+    //     return $this->createQueryBuilder('a')
+    //         ->select('t')
+    //         ->join('a.tache', 't')
+    //         ->where('a.user = :user')
+    //         ->setParameter('user', $user)
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 
 
     //    /**

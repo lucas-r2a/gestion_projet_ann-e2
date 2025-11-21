@@ -17,7 +17,12 @@
             <a href="{{ path('app_projet_index') }}" class="hover:underline">Projet</a>
             <a href="{{ path('app_tache_index') }}" class="hover:underline">Tache</a>
             <a href="{{ path('app_team_index') }}" class="hover:underline">Team</a>
-            <a href="{{ path('app_user_mesTaches') }}" class="hover:underline">Mes Taches</a>
+            {% if app.user %}
+                <a href="{{ path('app_user_mesTaches', { id: app.user.id }) }}" class="hover:underline">
+                Mes Tâches
+                </a>
+            {% endif %}
+
             <a href="{{ path('app_login') }}" class="hover:underline">Login</a>
         </div>
     </div>

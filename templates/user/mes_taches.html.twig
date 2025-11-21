@@ -1,35 +1,46 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Mes Tâches Assignées{% endblock %}
+{% block title %}Assignations{% endblock %}
 
 {% block body %}
-<h1 class="text-2xl font-bold mb-4">Mes Tâches Assignées</h1>
+<div class="bg-white p-6 rounded-xl shadow">
 
-<table class="min-w-full bg-white shadow mt-4 rounded overflow-hidden">
-    <thead class="bg-gray-200 text-left">
-        <tr>
-            <th class="px-4 py-2">Titre</th>
-            <th class="px-4 py-2">Statut</th>
-            <th class="px-4 py-2">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for tache in taches %}
-        <tr class="border-b">
-            <td class="px-4 py-2">{{ tache.titre }}</td>
-            <td class="px-4 py-2">{{ tache.statut }}</td>
-            <td class="px-4 py-2 flex gap-2">
-                <a href="{{ path('app_tache_show', {'id': tache.id}) }}" class="text-blue-600 hover:underline">Voir</a>
-                <a href="{{ path('app_tache_edit', {'id': tache.id}) }}" class="text-yellow-600 hover:underline">Modifier</a>
-            </td>
-        </tr>
-    {% else %}
-        <tr>
-            <td colspan="3" class="px-4 py-2 text-gray-500 text-center">
-                Aucune tâche ne vous est assignée.
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+    <h2 class="text-2xl font-semibold mb-4">Mes Tâches</h2>
+
+    {# <a href="{{ path('app_user_add_assignation', {'id': user.id}) }}"
+       class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded mb-4 inline-block">
+        + Assigner une tâche
+    </a> #}
+
+    <table class="w-full bg-white border-collapse shadow rounded-md overflow-hidden">
+        <thead class="bg-gray-200">
+            <tr>
+                <td class="px-4 py-3">Titre</td>
+                <td class="px-4 py-3">Statut</td>
+                <td class="px-4 py-3">Actions</td>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for a in assignations %}
+            <tr class="border-b">
+                <td class="px-4 py-3">{{ a.tache.titre }}</td>
+                <td class="px-4 py-3">{{ a.tache.statut }}</td>
+                <td class="px-4 py-2 flex gap-2">
+                    <form method="post"
+                          action="{{ path('app_user_remove_assignation', {'id': a.id}) }}"
+                          onsubmit="return confirm('Retirer cette assignation ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('remove_assignation' ~ a.id) }}">
+                        <button class="bg-red-600 px-3 py-1 text-white rounded">X</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3" class="text-center py-4 text-gray-500">Aucune assignation</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
 {% endblock %}

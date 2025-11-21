@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Assigner;
+use App\Entity\Tache;
 use App\Entity\User;
 use App\Form\AssignationType;
 use App\Form\UserType;
@@ -134,14 +135,13 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/taches', name: 'app_user_mesTaches')]
-    public function mesTaches(AssignerRepository $assignerRepo): Response
+    #[Route('/{id}/taches', name: 'app_user_mesTaches')]
+    public function mesTaches(AssignerRepository $assignerRepo, User $user): Response
     {
-        $user = $this->getUser();
-        $taches = $assignerRepo->findTachesByUser($user);
-
+        // $taches = $assignerRepo->findTachesByUser($user);
         return $this->render('user/mes_taches.html.twig', [
-            'taches' => $taches,
+            'user' => $user,
+            'assignations' => $user->getAssigners(), 
         ]);
     }
 

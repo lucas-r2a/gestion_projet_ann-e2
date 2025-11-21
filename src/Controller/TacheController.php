@@ -130,19 +130,5 @@ final class TacheController extends AbstractController
 
         return $this->redirectToRoute('tache_show', ['id_tache' => $tache->getId()]);
     }
-
-    // #[Route('/mes_taches', name: 'mes_taches')]
-    // public function mesTaches(AssignerRepository $assignerRepo): Response
-    // {
-    //     dd($this);
-    //     $user = $this->getUser();
-    //     $taches = $assignerRepo->findTachesByUser($user);
-
-    //     return $this->render('tache/mes_taches.html.twig', [
-    //         'taches' => $taches,
-    //     ]);
-    // }
-
-
 }
     

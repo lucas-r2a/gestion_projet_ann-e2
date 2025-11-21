@@ -15,7 +15,7 @@
         <thead class="bg-gray-200">
             <tr>
                 <td class="px-4 py-3">Titre</td>
-                <td class="px-4 py-3">Statut</td>
+                <td class="px-4 py-3">Description</td>
                 <td class="px-4 py-3">Actions</td>
             </tr>
         </thead>
@@ -24,7 +24,7 @@
         {% for t in taches %}
             <tr class="border-b">
                 <td class="px-4 py-3">{{ t.titre }}</td>
-                <td class="px-4 py-3">{{ t.statut }}</td>
+                <td class="px-4 py-3">{{ t.description }}</td>
                 <td class="px-4 py-3">
                     <form method="post"
                           action="{{ path('app_tache_delete', {'tache': t.id}) }}"
