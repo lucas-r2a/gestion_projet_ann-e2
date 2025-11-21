@@ -84,30 +84,30 @@ final class TacheController extends AbstractController
     }
 
     
-     #[Route('/{tache}/assigner', name: 'tache_assigner', methods: ['GET', 'POST'])]
-    public function assigner(Tache $tache, Request $request, EntityManagerInterface $em, 
-    UserRepository $userRepo): Response {
-        $assignation = new Assigner();
-        $assignation->setTache($tache);
+    //  #[Route('/{tache}/assigner', name: 'tache_assigner', methods: ['GET', 'POST'])]
+    // public function assigner(Tache $tache, Request $request, EntityManagerInterface $em, 
+    // UserRepository $userRepo): Response {
+    //     $assignation = new Assigner();
+    //     $assignation->setTache($tache);
 
-        $form = $this->createForm(AssignationType::class, $assignation, [
-            'user' => $userRepo->findAll()
-        ]);
+    //     $form = $this->createForm(AssignationType::class, $assignation, [
+    //         'user' => $userRepo->findAll()
+    //     ]);
 
-        $form->handleRequest($request);
+    //     $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($assignation);
-            $em->flush();
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $em->persist($assignation);
+    //         $em->flush();
 
-            return $this->redirectToRoute('tache_show', ['id_tache' => $tache->getId()]);
-        }
+    //         return $this->redirectToRoute('tache_show', ['id_tache' => $tache->getId()]);
+    //     }
 
-        return $this->render('tache/assigner.html.twig', [
-            'tache' => $tache,
-            'form' => $form,
-        ]);
-    }
+    //     return $this->render('tache/assigner.html.twig', [
+    //         'tache' => $tache,
+    //         'form' => $form,
+    //     ]);
+    // }
 
     #[Route('/assignation/{id}/remove', name: 'tache_remove_assignation', methods: ['POST'])]
     public function removeAssignation(Assigner $assigner, EntityManagerInterface $em): Response
