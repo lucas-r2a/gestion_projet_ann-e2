@@ -33,13 +33,13 @@ class Projet
     /**
      * @var Collection<int, Tache>
      */
-    #[ORM\OneToMany(targetEntity: Tache::class, mappedBy: 'projet')]
+    #[ORM\OneToMany(targetEntity: Tache::class, mappedBy: 'projet', cascade: ["remove"])]
     private Collection $taches;
 
     /**
      * @var Collection<int, Lier>
      */
-    #[ORM\OneToMany(targetEntity: Lier::class, mappedBy: 'projet')]
+    #[ORM\OneToMany(targetEntity: Lier::class, mappedBy: 'projet', cascade: ["remove"])]
     private Collection $liers;
 
     public function __construct()
