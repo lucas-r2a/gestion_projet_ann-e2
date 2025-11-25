@@ -8,8 +8,11 @@ use App\Entity\User;
 use App\Form\AssignationType;
 use App\Form\UserType;
 use App\Repository\AssignerRepository;
+use App\Repository\ComposerRepository;
+use App\Repository\LierRepository;
 use App\Repository\TacheRepository;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -136,12 +139,23 @@ final class UserController extends AbstractController
     }
 
     #[Route('/{id}/taches', name: 'app_user_mesTaches')]
-    public function mesTaches(AssignerRepository $assignerRepo, User $user): Response
+    public function mesTaches(AssignerRepository $assignerRepo, User $user, ComposerRepository $composerRepository, LierRepository $lierRepository): Response
     {
-        
+        $composers = $composerRepository->findBy(["user" => $user]);
+        $taches = [];
+        foreach ($composers as $composer) {
+            $equipe = $composer->getTeam();
+            $liers = $lierRepository->findBy(["team" => $equipe]);
+            foreach ($liers as $lier) {
+                $projet = $lier->getProjet();
+                $tachesProjet = $projet->getTaches();
+                $taches = new ArrayCollection(array_merge($taches, $tachesProjet->toArray()));
+            }
+        }
         return $this->render('user/mes_taches.html.twig', [
             'user' => $user,
             'assignations' => $user->getAssigners(), 
+            'tachesEquipe' => $taches,
         ]);
     }
 

@@ -141,6 +141,8 @@ final class ProjetController extends AbstractController
             'taches' => $taches,
         ]);
     }
+
+    #Lier des équipes au projet
     #[Route('/{projet}/add-equipe', name: 'app_projet_add_team', methods: ['POST'])]
     public function addEquipe(Projet $projet, Request $request, EntityManagerInterface $em, TeamRepository $teamRepo): Response
     {

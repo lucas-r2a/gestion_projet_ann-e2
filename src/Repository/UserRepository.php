@@ -39,6 +39,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     //    public function findByExampleField($value): array
     //    {
     //        return $this->createQueryBuilder('u')
+    //            ->join("u.team","t")
+    //            ->join("t.projet",'p')
+    //            ->join("")
     //            ->andWhere('u.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->orderBy('u.id', 'ASC')
