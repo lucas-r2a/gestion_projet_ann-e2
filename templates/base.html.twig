@@ -13,7 +13,7 @@
     <div class="container mx-auto flex justify-between">
         <h1 class="font-bold text-xl">ProjetManager</h1>
         <div class="flex gap-4">
-            {% if is_granted('ROLE_MANAGER') %}
+            {% if is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('app_user_index') }}" class="hover:underline">User</a>
                 <a href="{{ path('app_projet_index') }}" class="hover:underline">Projet</a>
                 <a href="{{ path('app_tache_index') }}" class="hover:underline">Tache</a>

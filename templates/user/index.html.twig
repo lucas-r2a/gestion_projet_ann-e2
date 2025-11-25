@@ -4,12 +4,13 @@
 {% block body %}
 <div class="bg-white p-6 rounded-xl shadow">
     <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-semibold">user</h2>
-
+        <h2 class="text-2xl font-semibold">User</h2>
+        {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('app_register') }}"
            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
             + Ajouter
         </a>
+        {% endif %} 
     </div>
 
     <table class="w-full border-collapse bg-white shadow rounded-md overflow-hidden">
@@ -28,8 +29,10 @@
                     <td class="px-4 py-3 flex gap-2 justify-center">
                         <a href="{{ path('app_user_show', {'user': u.id}) }}"
                            class="px-3 py-1 bg-blue-500 text-white rounded">Voir</a>
+                        {% if is_granted('ROLE_ADMIN') %}   
                         <a href="{{ path('app_user_edit', {'user': u.id}) }}"
                            class="px-3 py-1 bg-yellow-500 text-white rounded">Éditer</a>
+                        {% endif %}   
                     </td>
                 </tr>
             {% else %}

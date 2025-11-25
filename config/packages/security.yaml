@@ -1,7 +1,7 @@
 security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
-        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: "auto"
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -36,9 +36,9 @@ security:
     access_control:
         - { path: ^/user/taches, roles: ROLE_USER }
 
-        - { path: ^/projet, roles: ROLE_MANAGER }
-        - { path: ^/team, roles: ROLE_MANAGER }
-        - { path: ^/taches, roles: ROLE_MANAGER }
+        - { path: ^/projet, roles: [ROLE_MANAGER, ROLE_ADMIN] }
+        - { path: ^/team, roles: [ROLE_MANAGER, ROLE_ADMIN] }
+        - { path: ^/taches, roles: [ROLE_MANAGER, ROLE_ADMIN] }
 
 when@test:
     security:

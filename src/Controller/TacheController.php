@@ -63,7 +63,7 @@ final class TacheController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_tache_index', [], Response::HTTP_SEE_OTHER);
+            // return $this->redirectToRoute('app_tache_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('tache/edit.html.twig', [
