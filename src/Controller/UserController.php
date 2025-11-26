@@ -87,7 +87,7 @@ final class UserController extends AbstractController
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    # gestion des assignations aux users
+    # gestion des assignations des taches aux users
     #[Route('/{id}/assignations', name: 'app_user_assignations', methods: ['GET'])]
     public function assignations(User $userId): Response
     {
@@ -97,7 +97,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    # ajouter des assignations
+    #Assigner une tache sans qu'il fasse partie d'une equipe  
     #[Route('/{id}/assigner', name: 'app_user_add_assignation', methods: ['GET', 'POST'])]
     public function addAssignation(Request $request, User $user, EntityManagerInterface $em): Response
     {
@@ -122,7 +122,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    # supprimer des assignations
+    # supprimer des taches
     #[Route('/assignation/{id}/remove', name: 'app_user_remove_assignation', methods: ['POST'])]
     public function removeAssignation(Request $request, Assigner $assigner, EntityManagerInterface $em): Response
     {
@@ -138,6 +138,7 @@ final class UserController extends AbstractController
         ]);
     }
 
+    #Liste des taches attribuée 
     #[Route('/{id}/taches', name: 'app_user_mesTaches')]
     public function mesTaches(AssignerRepository $assignerRepo, User $user, ComposerRepository $composerRepository, LierRepository $lierRepository): Response
     {

@@ -118,7 +118,8 @@ final class ProjetController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
+    
+    #enlever des equipes lier au projet
     #[Route('/{projet}/team/{id}/remove', name: 'projet_team_remove')]
     public function removeTeam(Projet $projet, Lier $lier, EntityManagerInterface $em): Response
     {

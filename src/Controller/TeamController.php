@@ -85,7 +85,7 @@ final class TeamController extends AbstractController
     }
 
 
-    #Ajouter des membres
+    #Ajouter des membres a l'equipe
     #[Route('/{team}/add-member', name: 'team_add_member', methods: ['GET', 'POST'])]
     public function addMember(Request $request, Team $team, EntityManagerInterface $em, TeamRepository $teamRepository, UserRepository $userRepository): Response
     {
@@ -112,7 +112,7 @@ final class TeamController extends AbstractController
         ]);
     }
 
-    #supprimer des membres 
+    #supprimer des membres
     #[Route('/remove-member/{id}', name: 'team_remove_member', methods: ['POST'])]
     public function removeMember(Request $request, Composer $composer, EntityManagerInterface $em, int $id): Response
     {
@@ -129,7 +129,7 @@ final class TeamController extends AbstractController
     }
 
     
-    // ajouter equipe aux projets 
+    // ajouter des equipe aux projets 
     #[Route('/{team}/add-project', name: 'team_add_project', methods: ['GET', 'POST'])]
     public function addProject(Request $request, Team $team, EntityManagerInterface $em): Response
     {

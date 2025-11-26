@@ -83,7 +83,7 @@ final class TacheController extends AbstractController
         return $this->redirectToRoute('app_tache_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    
+    // 
     //  #[Route('/{tache}/assigner', name: 'tache_assigner', methods: ['GET', 'POST'])]
     // public function assigner(Tache $tache, Request $request, EntityManagerInterface $em, 
     // UserRepository $userRepo): Response {
@@ -109,16 +109,17 @@ final class TacheController extends AbstractController
     //     ]);
     // }
 
-    #[Route('/assignation/{id}/remove', name: 'tache_remove_assignation', methods: ['POST'])]
-    public function removeAssignation(Assigner $assigner, EntityManagerInterface $em): Response
-    {
-        $tacheId = $assigner->getTache()->getId();
+    // #supprimer la tache assignée
+    // #[Route('/assignation/{id}/remove', name: 'tache_remove_assignation', methods: ['POST'])]
+    // public function removeAssignation(Assigner $assigner, EntityManagerInterface $em): Response
+    // {
+    //     $tacheId = $assigner->getTache()->getId();
 
-        $em->remove($assigner);
-        $em->flush();
+    //     $em->remove($assigner);
+    //     $em->flush();
 
-        return $this->redirectToRoute('tache_show', ['id_tache' => $tacheId]);
-    }
+    //     return $this->redirectToRoute('tache_show', ['id_tache' => $tacheId]);
+    // }
 
     
     #MISE À JOUR DU STATUT
